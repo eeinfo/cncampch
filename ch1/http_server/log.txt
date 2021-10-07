@@ -1,0 +1,4 @@
+ERROR: logging before flag.Parse: I1007 23:43:54.487844   15816 main.go:26] Starting http server...
+ERROR: logging before flag.Parse: I1007 23:44:02.044233   15816 main.go:64] &{0xc000126f00}IP: [::1], StateCode:200
+ERROR: logging before flag.Parse: I1007 23:44:02.397457   15816 main.go:64] &{0xc000126f00}IP: [::1], StateCode:200
+ERROR: logging before flag.Parse: I1007 23:44:05.356493   15816 main.go:64] &{0xc000126f00}IP: [::1], StateCode:200
