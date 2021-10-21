@@ -2,10 +2,9 @@
 # 构建阶段
 FROM golang:1.17-alpine AS build
 
-# 设置go mod代理和http server的环境变量VERSION
+# 设置go mod代理
 ENV GO111MODULE=on \
-          GOPROXY=https://goproxy.cn,direct \
-          VERSION=v1.0
+          GOPROXY=https://goproxy.cn,direct
 
 #设置工作目录
 WORKDIR /app
@@ -23,6 +22,9 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o httpserver /app
  
 # 部署阶段
 FROM alpine:latest AS prod
+
+# 设置环境变量VERSION
+ENV VERSION=v1.0
 
 # 复制已编译程序
 COPY --from=build /app /http-server 
