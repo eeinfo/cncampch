@@ -62,21 +62,18 @@ $ sudo docker container ls
 CONTAINER ID   IMAGE                                               
 c8124f127827   eeinfo/http-server:v1.
 
-$ sudo docker inspect --format {{.State.Pid}} c8124f127827
 # 得到PID
+$ sudo docker inspect --format {{.State.Pid}} c8124f127827
 434388
 
-# 使用nsenter命令进入容器
-$ sudo nsenter -n -t434388
-
-# 查看 IP 配置
-root@........# ip addr
+# 使用nsenter命令进入容器，查看 IP 配置
+$ sudo nsenter -t 434388 -n ip a
 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
     inet 127.0.0.1/8 scope host lo
        valid_lft forever preferred_lft forever
-154: eth0@if155: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default 
+12: eth0@if13: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default 
     link/ether 02:42:ac:11:00:02 brd ff:ff:ff:ff:ff:ff link-netnsid 0
-    inet 172.*.*.2/16 brd 172.*.*.255 scope global eth0
+    inet 172.17.0.2/16 brd 172.17.255.255 scope global eth0
        valid_lft forever preferred_lft forever
 ```
