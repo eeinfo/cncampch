@@ -45,7 +45,7 @@ v1.0: digest: sha256:da...... size: 950
 #### 通过 Docker 命令本地启动 httpserver。
 
 ```
-$ sudo docker run -p 80:80 eeinfo/http-server:v1.0 
+$ sudo docker run -p 80:80 -v /home/logs:/logs eeinfo/http-server:v1.0 
 
 Unable to find image 'eeinfo/http-server:v1.0' locally
 v1.0: Pulling from eeinfo/http-server
