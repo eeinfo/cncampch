@@ -17,7 +17,7 @@ Successfully built 0b......
 Successfully tagged eeinfo/http-server:v1.0
 
 # 测试镜像
-$ sudo docker run -it eeinfo/http-server:v1.0 -p 80:80
+$ sudo docker run -p 80:80 eeinfo/http-server:v1.0
 
 [GIN-debug] GET    /healthz                  --> main.healthzHandler (6 handlers)
 [GIN-debug] GET    /error                    --> main.errorHandler (6 handlers)
@@ -45,7 +45,7 @@ v1.0: digest: sha256:da...... size: 950
 #### 通过 Docker 命令本地启动 httpserver。
 
 ```
-$ sudo docker run -it eeinfo/http-server:v1.0 -p 80:80
+$ sudo docker run -p 80:80 eeinfo/http-server:v1.0 
 
 Unable to find image 'eeinfo/http-server:v1.0' locally
 v1.0: Pulling from eeinfo/http-server
