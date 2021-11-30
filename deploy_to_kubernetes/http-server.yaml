@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-server
+spec:
+  selector:
+    matchLabels:
+      app: http-server
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: http-server
+      name: http-server
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - http-server
+            topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: http-server
+        image: eeinfo/http-server:v1.0
+        imagePullPolicy: IfNotPresent        
+        resources:
+          limits:
+            memory: 1Gi
+            cpu: 1
+          requests:
+            memory: 512Mi
+            cpu: 500m
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 5
+          timeoutSeconds: 3
+          successThreshold: 1
+          failureThreshold: 5
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 5
+          failureThreshold: 5
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        lifecycle:
+            preStop:
+              httpGet:
+                path: /healthz
+                port: 80 
+        env:
+        - name: VERSION
+          valueFrom:
+            configMapKeyRef:
+              name: env-config
+              key: version
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always  
+      terminationGracePeriodSeconds: 70
+      priorityClassName: hige-priority
