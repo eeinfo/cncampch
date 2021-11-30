@@ -126,10 +126,17 @@ env:
 ```
 
 ```bash
-# k create -f config-map.yaml
-# k create -f high-priority.yaml
-# k create -f http-server.yaml
-# kubectl get pod --namespace default
+# 创建ConfigMap
+$ k create -f config-map.yaml 
+
+# 创建PriorityClass
+$ k create -f high-priority.yaml 
+
+# 创建Deployment
+$ k create -f http-server.yaml 
+
+# 查看Pod状态
+$ kubectl get pod --namespace default
 NAME                          READY   STATUS    RESTARTS   AGE
 http-server-9d7576b4b-76k2c   1/1     Running   0          92m
 http-server-9d7576b4b-dtnpm   1/1     Running   0          92m
